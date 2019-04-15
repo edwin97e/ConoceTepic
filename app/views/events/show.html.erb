@@ -1,0 +1,93 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @event.name %></h1>
+
+<p>
+  <strong>Descripcion Corta:</strong>
+  <%= @event.short_description %>
+</p>
+
+<p>
+  <strong>Descripcion Larga:</strong>
+  <%= @event.long_description %>
+</p>
+<h1 id= "latitude" style="display: none"><%= @event.latitude %></h1>
+
+<h1 id= "longitude" style="display: none"><%= @event.longitude%></h1>
+
+<div id="mapid" style="height: 500px; width: 1000px;"></div>
+
+<p>
+  <strong>Tipo de Evento</strong>
+  <%= @event.category.name%>
+</p>
+
+<p>
+  <strong>Costo:</strong>
+  $<%= @event.cost %> MNX
+</p>
+
+<p>
+  <strong>Hora de Inicio:</strong>
+  <%= @event.begining_hour %>
+</p>
+
+<p>
+  <strong>Hora de Termino:</strong>
+  <%= @event.ending_hour %>
+</p>
+
+<p>
+  <strong>Fecha de Inicio:</strong>
+  <%= @event.begining_date %>
+</p>
+
+<p>
+  <strong>Fecha de Termino:</strong>
+  <%= @event.ending_date %>
+</p>
+
+<p>
+  <%= image_tag @event.img.url()%>  
+</p>
+
+<div id="contenedor_video">
+  <h1>
+    <%= video_tag([@event.video.url], :size => "320x240", :controls => true, :id =>"video")%> 
+  </h1>
+</div>
+
+<div id="contenedor_link">
+  <p>Link Video:</p>
+  <p id="link"><%= @event.link_video %></p>
+</div>
+
+<script>
+  name = document.getElementsByTagName("h1")[0].innerHTML;
+  lati = document.getElementsByTagName("h1")[1].innerHTML;
+  long = document.getElementsByTagName("h1")[2].innerHTML;
+
+  mymap = L.map('mapid').setView([lati,long],14);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
+    
+
+  marker = L.marker([lati, long]).addTo(mymap);
+  marker.bindPopup(name).openPopup();
+
+
+  video = document.getElementById("video").getAttribute('src');
+  if (video == '/videos/original/missing.png')
+      document.getElementById("contenedor_video").style.display = 'none';
+
+  link = document.getElementById("link").innerHTML;
+  if (link == null)
+      document.getElementById("contenedor_link").style.display = 'none';
+
+</script>
+
+
+<%= link_to 'Editar', edit_event_path(@event) %> |
+<%= link_to 'Regresar', events_path %>

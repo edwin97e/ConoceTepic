@@ -1,0 +1,119 @@
+<%= form_with(model: route, local: true) do |form| %>
+  <% if route.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(route.errors.count, "error") %> prohibited this route from being saved:</h2>
+
+      <ul>
+      <% route.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label "Nombre" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Descripcion Corta" %>
+    <%= form.text_area :short_description, cols: "50", rows: "4"%>
+  </div>
+
+  <div class="field">
+    <%= form.label "Descripcion Larga" %>
+    <%= form.text_area :long_description, cols: "50", rows: "7"%>
+  </div>
+
+  <div class="field" style="inline-block">
+    <%= form.label "Sitios" %>
+    <%= form.select 'sites_tmep' ,options_from_collection_for_select(Site.all,:name, :name) ,prompt: "Seleccione un Sitio"%>
+    <%= form.hidden_field :sites%>
+  </div>
+
+  <div class="field" style="inline-block">
+    <button id="btnAgregar" name="btnAgregar" onclick="return agregar(this)">Agregar</button>
+  </div>
+
+  <div id="cadena"></div>
+  <div id="contenedor"></div>
+
+  <div class="field">
+    <%= form.label "Costo" %>
+    <%= form.number_field :cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Elije una Categoria"%>
+    <%= form.select :category_id, options_from_collection_for_select(Category.all,:id, :name) ,prompt: "Seleccione una ocupacion" %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Hora de Inicio" %>
+    <%= form.time_field :begining_hour %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Hora de Termino" %>
+    <%= form.time_field :ending_hour %>
+  </div>
+
+  <div class="field">
+    <%= form.label "link video" %>
+    <%= form.text_field :link_video %>
+  </div>
+
+  <div class="field">
+    <%= form.label :imagen %>
+    <%= form.file_field :img %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Agrege un Video" %>
+    <%= form.file_field :video %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<script>
+  var opciones=[]
+
+   function quitar(obj,index){
+    if(confirm("Quieres borrarlo")){
+      obj.parentElement.parentElement.innerHTML="";
+      opciones.splice(index,1);
+      actualizar();
+    }
+    return false;
+  }
+
+  function agregar(evt){
+    var select = document.getElementById("route_sites_tmep");
+    var opcion = select.options[select.selectedIndex].text;
+    opciones.push(opcion);
+    actualizar();
+    return false;
+  }
+
+  function actualizar(){
+    var cadena = document.getElementById("cadena");
+    var contenedor = document.getElementById("contenedor");
+    var cad="<ul>";
+    var cad_commas="";
+    for (var i = 0; i < opciones.length; i++) {
+      cad+="<li><div>"+opciones[i]+"</div><div><button onclick='return quitar(this,"+i+")'>Quitar</button></div></li>";
+      cad_commas+=i==opciones.length-1? opciones[i]:opciones[i]+",";
+    }
+    cad+="</ul>";
+    cadena.innerHTML=cad_commas;
+    contenedor.innerHTML=cad;
+    document.getElementById('route_sites').value = cad_commas;
+   }
+
+</script>

@@ -1,0 +1,7 @@
+<h1><center><h1><%= @user.typeofuser.name %></center></h1>
+<h1><center><%= @user.username%></center></h1>
+<h1><center><%= @user.email%></center></h1>
+<h1><center><%= @user.name%></center></h1>
+<center><%= link_to 'Editar', edit_user_path(@user) %> |
+<%= link_to 'Regresar', users_path %>
+</center>

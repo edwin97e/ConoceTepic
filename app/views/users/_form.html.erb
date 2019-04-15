@@ -1,0 +1,33 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+   <% end %>
+    <p>
+      <%= f.label "nombre" %><br>
+      <%= f.text_field :name %>
+    </p>
+
+    <p>
+      <%= f.label "Nombre de Usuario" %><br>
+      <%= f.text_field :username %>
+   </p>
+   
+   <div class="form-group">
+    <%= f.label "Elija una Categoria"%><br>
+    <%= f.select :typeofuser_id ,options_from_collection_for_select(Typeofuser.all,:id, :name) ,prompt: "Seleccione una ocupacion", class:"custom-select"%>
+  </div>
+
+  <div class="form-group">
+      <%= f.submit "Enviar"%>
+  </div>
+<% end %>
+
+<%= link_to "Regresar",current_user%>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<h2 class="text-center">Rutas Turisticas</h2>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion Corta</th>
+        <th scope="col">Sitios</th>
+        <th scope="col">Costo</th>
+        <th scope="col">Hora de Inicio</th>
+        <th scope="col">Hora de Termino</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @routes.each do |route| %>
+        <tr>
+          <td><%= route.name %></td>
+          <td><%= route.short_description %></td>
+          <td><%= route.sites %></td>
+          <td><%= route.cost %></td>
+          <td><%= route.begining_hour %></td>
+          <td><%= route.ending_hour %></td>
+          <td><%= link_to 'Ver', route %></td>
+          <td><%= link_to 'Editar', edit_route_path(route) %></td>
+          <td><%= link_to 'Eliminar', route, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
+        </tr>  
+      <%end%>
+    </tbody>    
+ </table>
+
+<%= link_to 'Nueva Ruta', new_route_path %>

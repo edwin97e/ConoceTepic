@@ -1,0 +1,98 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @site.name%></h1>
+
+<p>
+  <strong>Descripcion Corta:</strong>
+  <%= @site.short_description %>
+</p>
+
+<p>
+  <strong>Descripcion Larga:</strong>
+  <%= @site.long_description %>
+</p>
+
+<h1 id= "latitude" style="display: none"><%= @site.latitude %></h1>
+
+<h1 id= "longitude" style="display: none"><%= @site.longitude%></h1>
+
+<div id="mapidsite" style="height: 500px; width: 1000px;"></div>
+
+
+<p>
+  <strong>tipo de evento</strong>
+  <%= @site.category.name %>
+</p>
+
+<p>
+  <strong>Costo:</strong>
+  $<%= @site.cost %> MNX
+</p>
+
+<p>
+  <strong>Latitud:</strong>
+  <%= @site.latitude%>
+</p>
+
+<p>
+  <strong>Longitud:</strong>
+  <%= @site.longitude%>
+</p>
+
+<p>
+  <strong>Hora de inicio:</strong>
+  <%= @site.begining_hour %>
+</p>
+
+<p>
+  <strong>Hora de Termino:</strong>
+  <%= @site.ending_hour %>
+</p>
+
+<p>
+  <strong>Imagen: </strong>
+  <br>
+  <%= image_tag @site.img.url()%>
+</p>
+
+<div id="contenedor_video">
+<p>
+  <strong>Video: </strong>
+  <br>
+  <%= video_tag([@site.video.url], :size => "320x240", :controls => true, :id => "video")%> 
+</p>
+</div>
+
+<div id="contenedor_link">
+  <p>Link Video:</p>
+  <p id="link"><%= @site.link_video %></p>
+</div>
+
+<%= link_to 'Editar', edit_site_path(@site) %> |
+<%= link_to 'Regresar', sites_path %>
+
+<script>
+name = document.getElementsByTagName("h1")[0].innerHTML;
+lati = document.getElementsByTagName("h1")[1].innerHTML;
+long = document.getElementsByTagName("h1")[2].innerHTML;
+
+mymapsite = L.map('mapidsite').setView([lati,long],14);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(mymapsite);
+  
+
+marker = L.marker([lati, long]).addTo(mymapsite);
+marker.bindPopup(name).openPopup();
+
+
+video = document.getElementById("video").getAttribute('src');
+if (video == '/videos/original/missing.png')
+    document.getElementById("contenedor_video").style.display = 'none';
+
+link = document.getElementById("link").innerHTML;
+  if (link == null)
+      document.getElementById("contenedor_link").style.display = 'none';
+
+</script>

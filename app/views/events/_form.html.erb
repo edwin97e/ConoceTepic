@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div class="col-6 col-sm-6 col-md-3">
+
+    <%= form_with(model: event, local: true) do |form| %>
+      <% if event.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+          <ul>
+          <% event.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label "Nombre" %>
+        <%= form.text_field :name, autofocus: true, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Descripcion Corta" %>
+        <%= form.text_area :short_description, cols: "50", rows: "4", class:"form-control"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Descripcion Larga" %>
+        <%= form.text_area :long_description, cols: "50", rows: "7", class:"form-control"%>
+      </div>
+
+      <div id="map" style="height: 500px; width: 1000px;" class="form-group"></div>
+      
+      
+      <h5>latitud:</h5>
+      <p id="latitud"></p>
+      <h5>longitud:</h5>
+      <p id="longitud"></p>
+      
+      <div>
+        <%= form.hidden_field :latitude %>
+      </div>
+
+      <div>
+        <%= form.hidden_field :longitude %>
+      </div>
+
+
+      <div class=¨form-group¨>
+        <%= form.label "Tipo de Evento" %><br>
+        <%= form.select :category_id ,options_from_collection_for_select(Category.all,:id, :name) ,prompt: "Seleccione una Tipo", class:"form-control"%>       
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Costo " %>
+        <%= form.number_field :cost, class:"form-control"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Hora de Inicio" %>
+        <%= form.time_field :begining_hour, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Hora de Termino" %>
+        <%= form.time_field :ending_hour, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Fecha de Inicio" %>
+        <%= form.date_field :begining_date, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Fecha de Termino" %>
+        <%= form.date_field :ending_date, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Agrege Imagenes"%>
+        <%= form.file_field :img , class:"form-control"%>    
+      </div>
+
+      <div class="form-group">
+        <%= form.label :video %>
+        <%= form.file_field :video , class:"form-control"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.label "Enlaces de video" %>
+        <%= form.text_field :link_video , class:"form-control"%>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "Aceptar", class: "btn btn-primary btn-block text-uppercase"%>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+  
+<script>
+  map = L.map('map').setView([21.5039,-104.89521],13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  popup = L.popup();
+  
+  function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("Agregar este Sitio")
+        .openOn(map);
+  var x = e.latlng.lat.toString();
+  var y = e.latlng.lng.toString();
+  document.getElementById('event_latitude').value = x;
+  document.getElementById('event_longitude').value = y;
+  document.getElementById('latitud').innerHTML= x;
+  document.getElementById('longitud').innerHTML= y;    
+  }
+  map.on('click', onMapClick);
+   
+</script>

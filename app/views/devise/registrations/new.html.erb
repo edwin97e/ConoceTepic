@@ -1,0 +1,53 @@
+<div class="container-fluid">
+<div class="row justify-content-center">
+<div class="col-12 col-sm-6 col-md-3">
+
+<h2 class="text-center">Crear Nueva Cuenta</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+
+  <div class="form-group">
+    <%= f.label "Nombre" %>
+    <%= f.text_field :name, autofocus: true, class:"form-control"%>  
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Nombre de Usuario"%>
+    <%= f.text_field :username, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Elija una Categoria"%><br>
+    <%= f.select :typeofuser_id ,options_from_collection_for_select(Typeofuser.all,:id, :name) ,prompt: "Seleccione una ocupacion", class:"custom-select"%>
+  </div>
+
+  
+  <div class="form-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "off",class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password, "Contraseña"%>
+    <% if @minimum_password_length %>
+    <em>(Minimo <%= @minimum_password_length %> caracteres)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off",class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation,"Confirmar Contraseña  " %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off",class:"form-control"%>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Crear Cuenta", class: "btn btn-primary btn-block text-uppercase"%>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>
+</div>
+</div>

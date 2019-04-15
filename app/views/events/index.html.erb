@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+<h2 class="text-center">Eventos</h2>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Descripcion Corta</th>
+      <th scope="col">Latitud</th>
+      <th scope="col">Longitud</th>
+      <th scope="col">Costo</th>
+      <th scope="col">Hora de Inicio</th>
+      <th scope="col">Hora de Termino</th>
+      <th scope="col">Fecha de Inicio</th>
+      <th scope="col">Fecha de Termino</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>     
+      <tr>
+        <th scope="row"></th>
+          <td><%= event.name %></td>    
+          <td><%= event.short_description %></td>
+          <td><%= event.latitude %></td>
+          <td><%= event.longitude %></td>
+          <td>$<%= event.cost %></td>
+          <td><%= event.begining_hour %></td>
+          <td><%= event.ending_hour %></td>
+          <td><%= event.begining_date %></td>
+          <td><%= event.ending_date %></td>
+          <td><%= link_to 'Ver', event %></td>
+          <td><%= link_to 'Editar', edit_event_path(event) %></td>
+          <td><%= link_to 'Eliminar', event, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+<%= link_to 'Nuevo Evento', new_event_path %>

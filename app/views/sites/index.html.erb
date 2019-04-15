@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<h2 class="text-center">Sitios de Interes</h2>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Descripcion Corta</th>
+      <th scope="col">Costo</th>
+      <th scope="col">Hora de apertura</th>
+      <th scope="col">Hora de Cierre</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>   
+    </tr>
+  </thead>
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <th scope="row"></th>
+        <td><%= site.name %></td>
+        <td><%= site.short_description %></td>
+        <td>$<%= site.cost %></td>
+        <td><%= site.begining_hour %></td>
+        <td><%= site.ending_hour %></td>
+        <td><%= link_to 'Ver', site %></td>
+        <td><%= link_to 'Editar', edit_site_path(site) %></td>
+        <td><%= link_to 'Eliminar', site, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>  
+
+<%= link_to 'Nuevo Sitio', new_site_path %>

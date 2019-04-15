@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @route.name %>
+</p>
+
+<p>
+  <strong>Short description:</strong>
+  <%= @route.short_description %>
+</p>
+
+<p>
+  <strong>Long description:</strong>
+  <%= @route.long_description %>
+</p>
+
+<p>
+  <strong>Sites:</strong>
+  <%= @route.sites %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @route.cost %>
+</p>
+
+<p>
+  <strong>tipo de evento</strong>
+  <%= @route.category.name %>
+</p>
+
+<p>
+  <strong>Begining hour:</strong>
+  <%= @route.begining_hour %>
+</p>
+
+<p>
+  <strong>Ending hour:</strong>
+  <%= @route.ending_hour %>
+</p>
+
+<p>
+  <strong>Imagen: </strong>
+  <%= image_tag @route.img.url()%>
+</p>
+
+<div id="contenedor_video">
+  <p>
+    <strong>Video: </strong>
+      <%= video_tag([@route.video.url], :size => "320x240", :controls => true, :id => "video")%> 
+  </p>
+</div>
+
+<p>
+  <strong>Link video:</strong>
+  <%= @route.link_video %>
+</p>
+
+<script>
+  video = document.getElementById("video").getAttribute('src');
+    if (video == '/videos/original/missing.png')
+      document.getElementById("contenedor_video").style.display = 'none';
+</script>
+
+<%= link_to 'Edit', edit_route_path(@route) %> |
+<%= link_to 'Back', routes_path %>

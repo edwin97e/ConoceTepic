@@ -1,0 +1,108 @@
+<%= form_with(model: site, local: true) do |form| %>
+  <% if site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
+
+      <ul>
+      <% site.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label "Nombre" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Descripcion Corta" %>
+    <%= form.text_area :short_description, cols: "50", rows: "4"%>
+  </div>
+
+  <div class="field">
+    <%= form.label "Descripcion Larga" %>
+    <%= form.text_area :long_description, cols: "50", rows: "7"%>
+  </div>
+  
+  <div id="mapsite" style="height: 500px; width: 1000px;" class="form-group"></div>
+
+  <h5>latitud:</h5>
+  <p id="latitud"></p>
+  <h5>longitud:</h5>
+  <p id="longitud"></p>
+  
+
+  <div>
+    <%= form.hidden_field :latitude %>
+  </div>
+
+  <div>
+    <%= form.hidden_field :longitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Tipo de Evento" %>
+    <%= form.select :category_id ,options_from_collection_for_select(Category.all,:id, :name) ,prompt: "Seleccione una Tipo" %>       
+  </div>
+
+  <div class="field">
+    <%= form.label "Costo" %>
+    <%= form.number_field :cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Hora de Inicio" %>
+    <%= form.time_field :begining_hour %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Hora de Termino" %>
+    <%= form.time_field :ending_hour %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Agrege una Imagen"%>
+    <%= form.file_field :img%>    
+  </div>
+
+  <div class="field">
+    <%= form.label "Agrege un Video" %>
+    <%= form.file_field :video %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label "link video" %>
+    <%= form.text_field :link_video %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script>
+  mymapsite = L.map('mapsite').setView([21.5039,-104.89521],13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(mymapsite);
+
+  popup = L.popup();
+  
+  function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("Agregar este Sitio")
+        .openOn(mymapsite);
+  var x = e.latlng.lat.toString();
+  var y = e.latlng.lng.toString();
+  document.getElementById('site_latitude').value = x;
+  document.getElementById('site_longitude').value = y;
+  document.getElementById('latitud').innerHTML= x;
+  document.getElementById('longitud').innerHTML= y;     
+  }
+  mymapsite.on('click', onMapClick);
+</script>
