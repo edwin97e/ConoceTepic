@@ -48,17 +48,7 @@
     <%= form.label "Elije una Categoria"%>
     <%= form.select :category_id, options_from_collection_for_select(Category.all,:id, :name) ,prompt: "Seleccione una ocupacion" %>
   </div>
-
-  <div class="field">
-    <%= form.label "Hora de Inicio" %>
-    <%= form.time_field :begining_hour %>
-  </div>
-
-  <div class="field">
-    <%= form.label "Hora de Termino" %>
-    <%= form.time_field :ending_hour %>
-  </div>
-
+  
   <div class="field">
     <%= form.label "link video" %>
     <%= form.text_field :link_video %>
@@ -106,14 +96,16 @@
     var contenedor = document.getElementById("contenedor");
     var cad="<ul>";
     var cad_commas="";
+    var cad_separa="";
     for (var i = 0; i < opciones.length; i++) {
       cad+="<li><div>"+opciones[i]+"</div><div><button onclick='return quitar(this,"+i+")'>Quitar</button></div></li>";
+      cad_separa+=i==opciones.length-1? opciones[i]:opciones[i]+"%";
       cad_commas+=i==opciones.length-1? opciones[i]:opciones[i]+",";
     }
     cad+="</ul>";
     cadena.innerHTML=cad_commas;
     contenedor.innerHTML=cad;
-    document.getElementById('route_sites').value = cad_commas;
+    document.getElementById('route_sites').value = cad_separa;
    }
 
 </script>

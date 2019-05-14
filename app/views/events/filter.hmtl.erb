@@ -1,0 +1,12 @@
+<br/>
+<%= form_tag "/send/create", method: :get, remote: true, id:"send-form" do %>
+	<%= text_field_tag :find, nil%>
+	<%= date_field :date, nil%>
+	<%= content_tag :button, type: :submit do %>
+	Enviar
+	<%end%>
+<%end%>
+
+<div id="resultado">
+	
+</div>

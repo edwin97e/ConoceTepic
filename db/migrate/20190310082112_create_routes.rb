@@ -6,8 +6,6 @@ class CreateRoutes < ActiveRecord::Migration[5.2]
       t.string :long_description
       t.string :sites
       t.float :cost
-      t.string :begining_hour
-      t.string :ending_hour
       t.string :link_video
 
       t.timestamps

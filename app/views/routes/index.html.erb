@@ -8,8 +8,6 @@
         <th scope="col">Descripcion Corta</th>
         <th scope="col">Sitios</th>
         <th scope="col">Costo</th>
-        <th scope="col">Hora de Inicio</th>
-        <th scope="col">Hora de Termino</th>
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -22,8 +20,6 @@
           <td><%= route.short_description %></td>
           <td><%= route.sites %></td>
           <td><%= route.cost %></td>
-          <td><%= route.begining_hour %></td>
-          <td><%= route.ending_hour %></td>
           <td><%= link_to 'Ver', route %></td>
           <td><%= link_to 'Editar', edit_route_path(route) %></td>
           <td><%= link_to 'Eliminar', route, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>

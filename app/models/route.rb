@@ -9,8 +9,6 @@ class Route < ApplicationRecord
 	validates :category_id, presence:true
 	validates :cost, presence:true
 	validates :sites,presence: true
-	validates :begining_hour, presence:true
-	validates :ending_hour, presence:true
 	
 	has_attached_file :img, :default_url => ":style/rails.jpg"
   	validates_attachment_content_type :img, content_type: /\Aimage\/.*\z/
