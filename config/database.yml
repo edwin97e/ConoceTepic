@@ -79,7 +79,7 @@ test:
 #
 #   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
 #
-# You can use this database configuration with:
+# You can use this database configuration with: 
 #
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
@@ -87,5 +87,3 @@ test:
 production:
   <<: *default
   database: Basecita_production
-  username: Basecita
-  password: <%= ENV['BASECITA_DATABASE_PASSWORD'] %>
